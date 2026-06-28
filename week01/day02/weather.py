@@ -7,10 +7,16 @@ coordinate  = get_city(city)
 
 data = {}
 current = {}
+
 if coordinate:
-    data = get_weather(coordinate['latitude'], coordinate['longitude'])
-    current = data['current']
-    print(f"当前城市{coordinate['name']}: {current['temperature_2m']}")
+    name = coordinate.get('name')
+    latitude = coordinate.get('latitude')
+    longitude = coordinate.get('longitude')
+
+    data = get_weather(latitude, longitude)
+    current = data.get('current', {})
+    temperature = current.get('temperature_2m')
+    print(f"当前城市{name}: {temperature}")
 
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as file:
         json.dump(data, file, ensure_ascii=False, indent=2)
