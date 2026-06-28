@@ -1,6 +1,6 @@
 import requests
 
-from config import GEO_URL, WEATHER_URL, OUTPUT_FILE
+from config import GEO_URL, WEATHER_URL
 
 def get_city(city):
     params = {
@@ -9,10 +9,16 @@ def get_city(city):
         "language": 'en',
         "format": 'json',
     }
-
-    response = requests.get(GEO_URL, params)
-    data = response.json()
-    return data['results'][0]
+    try:
+        response = requests.get(GEO_URL, params=params)
+        data = response.json()
+        results = data.get("results")
+        print("city response:", data)
+        if not results:
+            return None
+        return results[0]
+    except Exception as e:
+        print('解析失败', e)
 
 def get_weather(latitude, longitude):
     params = {
@@ -21,6 +27,13 @@ def get_weather(latitude, longitude):
          "current": "temperature_2m,weather_code,wind_speed_10m",
     }
 
-    response = requests.get(WEATHER_URL, params)
-    return response.json()
+    try:
+        response = requests.get(WEATHER_URL, params=params)
+        print("weather text:", response.text)
+
+        result = response.json()
+        print("weather json:", result)
+        return result
+    except Exception as e:
+        print('解析失败', e)
 
