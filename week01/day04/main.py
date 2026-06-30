@@ -1,6 +1,7 @@
 import argparse
 import csv
 from pathlib import Path
+import sys
 
 from reader import read_csv
 from cleaner import clean_data, remove_duplicates
@@ -56,4 +57,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+   sys.exit(main())
