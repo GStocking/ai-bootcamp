@@ -17,7 +17,7 @@ def remove_duplicates(data):
     for row in data:
         key = (row['name'],row['age'],row['city'],row['email'])
         if key not in seen:
-            seen.append(key)
+            seen.add(key)
             filtered_data.append(row)
 
     return filtered_data

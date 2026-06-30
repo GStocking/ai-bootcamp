@@ -1,0 +1,6 @@
+name,age,city,email
+Tom,20,Suzhou,tom@test.com
+Lucy,,Shanghai,lucy@test.com
+Jack,18,,jack@test.com
+Tom,20,Suzhou,tom@test.com
+Apple,28,Suzhou,apple@test.com
