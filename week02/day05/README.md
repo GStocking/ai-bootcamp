@@ -83,20 +83,26 @@ python3 -m pip install -r requirements.txt
 在 `week02/day05` 目录运行：
 
 ```bash
-uvicorn main:app --reload
+python run.py
 ```
 
 启动成功后访问：
 
-- API 首页：http://127.0.0.1:8000
-- Swagger 页面：http://127.0.0.1:8000/docs
+- API 首页：http://127.0.0.1:8001
+- Swagger 页面：http://127.0.0.1:8001/docs
+
+如果 `8001` 也被占用，可以临时换一个端口：
+
+```bash
+PORT=8002 python run.py
+```
 
 ## 测试接口
 
 请求地址：
 
 ```text
-POST http://127.0.0.1:8000/clean
+POST http://127.0.0.1:8001/clean
 ```
 
 请求体示例：
@@ -135,7 +141,7 @@ POST http://127.0.0.1:8000/clean
 使用 `curl` 测试：
 
 ```bash
-curl -X POST http://127.0.0.1:8000/clean \
+curl -X POST http://127.0.0.1:8001/clean \
   -H "Content-Type: application/json" \
   -d '{
     "rows": [

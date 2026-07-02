@@ -3,16 +3,36 @@ from typing import Iterable, List, Tuple
 from models.schemas import RawRow
 
 
+def _clean_text(value, default=""):
+    # 处理文本字段：去掉空格，空值时返回默认值。
+    if value is None:
+        return default
+
+    text = str(value).strip()
+    return text or default
+
+
+def _clean_age(value):
+    # 处理年龄字段：空值或非法数字都变成 0。
+    if value is None or value == "":
+        return 0
+
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return 0
+
+
 def clean_data(rows: Iterable[RawRow]):
     # 把每一行原始数据整理成统一格式。
     cleaned_data = []
 
     for row in rows:
         item = {
-            "name": row.get('name'),
-            "age": row.get('age') or 0,
-            "city": row.get('city', 'Unknown'),
-            "email": row.get('email'),
+            "name": _clean_text(row.name),
+            "age": _clean_age(row.age),
+            "city": _clean_text(row.city, default="Unknown"),
+            "email": _clean_text(row.email),
         }
         cleaned_data.append(item)
 
